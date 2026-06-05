@@ -202,6 +202,18 @@ def get_learn_module(module_id: int, db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="Module not found")
     return module
 
+@app.get("/email-status/")
+def get_email_status():
+    from services.automatic_emailing import BREVO_API_KEY, RESEND_API_KEY, BREVO_SENDER, RESEND_SENDER
+    return {
+        "brevo_configured": bool(BREVO_API_KEY),
+        "brevo_key_preview": f"{BREVO_API_KEY[:6]}...{BREVO_API_KEY[-4:]}" if len(BREVO_API_KEY) > 10 else "too short/empty",
+        "brevo_sender": BREVO_SENDER,
+        "resend_configured": bool(RESEND_API_KEY),
+        "resend_key_preview": f"{RESEND_API_KEY[:6]}...{RESEND_API_KEY[-4:]}" if len(RESEND_API_KEY) > 10 else "too short/empty",
+        "resend_sender": RESEND_SENDER,
+    }
+
 from fastapi.staticfiles import StaticFiles
 frontend_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "../frontend")
 app.mount("/", StaticFiles(directory=frontend_dir, html=True), name="frontend")
