@@ -112,14 +112,39 @@ if(document.getElementById('recentPostsGrid')) {
 if(window.location.pathname.includes('blogs.html')) {
   const quizPassed = localStorage.getItem('quizPassed') === 'true';
   if (!quizPassed) {
-    showToast('You must score at least 8 on the quiz to unlock the blogs!');
     const wrapper = document.getElementById('blog-wrapper');
     if (wrapper) {
-      wrapper.style.display = 'none';
+      wrapper.innerHTML = `
+        <div style="max-width: 600px; margin: 40px auto; text-align: center;" class="card visible">
+          <div style="font-size: 4rem; color: var(--secondary-color); margin-bottom: 1.5rem;">
+            <i class="fa-solid fa-lock"></i>
+          </div>
+          <h2 style="font-size: 2rem; margin-bottom: 1rem; color: var(--text-primary); font-family: 'Syne', sans-serif;">Access Locked</h2>
+          <p style="color: var(--text-secondary); font-size: 1.1rem; line-height: 1.6; margin-bottom: 2.3rem; font-family: 'Outfit', sans-serif;">
+            You must score at least 8 on the Finance Basics Quiz to unlock the blogs and read detailed market research.
+          </p>
+          <div style="background: rgba(242, 208, 124, 0.1); border: 1px solid var(--secondary-color-dim); border-radius: 100px; padding: 0.8rem 2rem; color: var(--secondary-color); font-weight: 600; display: inline-block; font-size: 0.95rem; text-transform: uppercase; letter-spacing: 0.05em;">
+            Redirecting in <span id="countdown-timer" style="font-weight: 800; color: #fff;">15</span> seconds...
+          </div>
+          <div style="margin-top: 2.5rem;">
+            <a href="learn.html" class="btn" style="text-decoration: none; display: inline-block;">Go to Quiz Now</a>
+          </div>
+        </div>
+      `;
     }
-    setTimeout(() => {
-      window.location.href = "learn.html";
-    }, 2000);
+    
+    let secondsRemaining = 15;
+    const interval = setInterval(() => {
+      secondsRemaining--;
+      const timerSpan = document.getElementById('countdown-timer');
+      if (timerSpan) {
+        timerSpan.innerText = secondsRemaining;
+      }
+      if (secondsRemaining <= 0) {
+        clearInterval(interval);
+        window.location.href = "learn.html";
+      }
+    }, 1000);
   } else {
     const urlParams = new URLSearchParams(window.location.search);
     const postId = urlParams.get('id');

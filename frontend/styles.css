@@ -210,7 +210,7 @@ form .input-field {
   padding: 1.2rem 2.5rem;
   border: none;
   background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
-  color: #000;
+  color: #000 !important;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.1em;
@@ -536,4 +536,17 @@ form textarea.input-field {
   filter: brightness(1.15);
   transform: translateY(-3px);
   box-shadow: 0 8px 25px rgba(225, 48, 108, 0.6);
+}
+
+/* Logo Cropping Wrapper using background-image to hide text */
+.logo-wrapper {
+  width: 65px;
+  height: 65px;
+  border-radius: 12px;
+  border: 1px solid var(--glass-border);
+  background-image: url('Logo.jpeg');
+  background-size: 200% auto;
+  background-position: center 8%;
+  background-repeat: no-repeat;
+  background-color: rgba(255, 255, 255, 0.02);
 }
