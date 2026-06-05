@@ -119,3 +119,5 @@ This project is fully containerized and ready for production deployment.
    ```bash
    docker run -d -p 8000:8000 -e PORT=8000 -e GMAIL_APP_PASSWORD="your_app_password" -e GMAIL_SENDER="your_email@gmail.com" finance-blog
    ```
+
+   ##I have used Google Antigravity and other AI tools to build this
