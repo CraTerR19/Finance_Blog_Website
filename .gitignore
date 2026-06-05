@@ -10,3 +10,8 @@ backend/.env
 
 # SQLite Database
 *.db
+
+# Large Assets
+*.pdf
+*.jpeg
+*.jpg
