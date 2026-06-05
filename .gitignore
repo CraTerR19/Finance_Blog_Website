@@ -13,5 +13,6 @@ backend/.env
 
 # Large Assets
 *.pdf
+!basic_finance_knowledge.pdf
 *.jpeg
 *.jpg
