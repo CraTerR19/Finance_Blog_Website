@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blogs | FinVerse</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+  <nav>
+    <a href="index.html" class="brand" style="display: flex; align-items: center; gap: 15px;">
+      <img src="Logo.jpeg" alt="FinVerse Logo" style="height: 65px; border-radius: 12px;">
+      Fin<span>Verse</span>
+    </a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="blogs.html" class="active">Blogs</a>
+      <a href="learn.html">Learn</a>
+      <a href="about.html">About Me</a>
+      <div style="display: flex; gap: 0.8rem; margin-left: 1rem;">
+        <a href="https://www.linkedin.com/in/samarth-yanjane-513295374?utm_source=share_via&utm_content=profile&utm_medium=member_android" target="_blank" class="social-icon linkedin" title="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+        <a href="https://www.instagram.com/finverse.zone/" target="_blank" class="social-icon instagram" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+      </div>
+    </div>
+  </nav>
+
+  <section style="margin-top: 80px;" id="blog-wrapper">
+    <div id="blog-list-view">
+      <h1 class="section-title">All Market Insights</h1>
+      <div class="grid" id="allPostsGrid">
+        <p style="text-align: center; color: var(--text-secondary);">Loading blog posts...</p>
+      </div>
+    </div>
+
+    <!-- Hidden by default, shown when viewing a specific post -->
+    <div id="blog-detail-view" style="display: none; max-width: 800px; margin: 0 auto;">
+      <button class="btn" style="margin-bottom: 2rem; background: var(--surface-color);" onclick="window.history.back()">← Back</button>
+      <h1 id="detail-title" style="font-size: 3rem; margin-bottom: 1rem;">Post Title</h1>
+      <p id="detail-date" style="color: var(--text-secondary); margin-bottom: 2rem;">Date</p>
+      <div class="blog-content" id="detail-content">
+        Loading...
+      </div>
+
+      <!-- YouTube Style Reaction Bar -->
+      <div style="display: flex; gap: 1rem; margin-top: 2rem; margin-bottom: 2rem; border-top: 1px solid rgba(255,255,255,0.1); border-bottom: 1px solid rgba(255,255,255,0.1); padding: 1rem 0;">
+        <button onclick="handlePostReaction('like')" style="cursor: pointer; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 100px; padding: 0.5rem 1.2rem; color: #fff; font-size: 1rem; display: flex; align-items: center; gap: 0.5rem; transition: all 0.2s;">
+          <i class="fa-solid fa-thumbs-up"></i> <span id="post-likes">0</span>
+        </button>
+        <button onclick="handlePostReaction('dislike')" style="cursor: pointer; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 100px; padding: 0.5rem 1.2rem; color: #fff; font-size: 1rem; display: flex; align-items: center; gap: 0.5rem; transition: all 0.2s;">
+          <i class="fa-solid fa-thumbs-down"></i> <span id="post-dislikes">0</span>
+        </button>
+      </div>
+
+      <div class="comment-section">
+        <h3>Views & Reviews</h3>
+        <div id="comments-list"></div>
+        
+        <div style="margin-top: 2rem;">
+          <h4 style="margin-bottom: 1rem;">Leave your view</h4>
+          <form id="commentForm">
+            <div class="form-group">
+              <input type="text" id="commentName" class="input-field" placeholder="Your Name" required>
+            </div>
+            <div class="form-group">
+              <textarea id="commentContent" class="input-field" placeholder="What are your thoughts?" required></textarea>
+            </div>
+            <button type="submit" class="btn">Post View</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div id="toast">Message goes here</div>
+
+  <script src="app.js"></script>
+</body>
+</html>

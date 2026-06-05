@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Learn & Quiz | FinVerse</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+</head>
+
+<body>
+  <nav>
+    <a href="index.html" class="brand" style="display: flex; align-items: center; gap: 15px;">
+      <img src="Logo.jpeg" alt="FinVerse Logo" style="height: 65px; border-radius: 12px;">
+      Fin<span>Verse</span>
+    </a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="blogs.html">Blogs</a>
+      <a href="learn.html" class="active">Learn</a>
+      <a href="about.html">About Me</a>
+      <div style="display: flex; gap: 0.8rem; margin-left: 1rem;">
+        <a href="https://www.linkedin.com/in/samarth-yanjane-513295374?utm_source=share_via&utm_content=profile&utm_medium=member_android"
+          target="_blank" class="social-icon linkedin" title="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+        <a href="https://www.instagram.com/finverse.zone/" target="_blank" class="social-icon instagram"
+          title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+      </div>
+    </div>
+  </nav>
+
+  <section style="margin-top: 80px;">
+    <div style="text-align: center; margin-bottom: 4rem;">
+      <h1 class="section-title">Finance Knowledge Hub</h1>
+      <p style="color: var(--text-secondary); max-width: 600px; margin: 0 auto;">Go through our quiz and test your
+        knowledge of financial concepts. Try to score above 8 to be eligible to read the blogs and improve your
+        understandings in depth!</p>
+    </div>
+
+    <!-- Dynamic Quiz Application -->
+    <div id="learning-modules-list" style="display: flex; justify-content: center; margin-top: 3rem;">
+      <div id="quiz-card" class="quiz-container"
+        style="width: 100%; max-width: 800px; padding: 3rem; background: rgba(255, 255, 255, 0.02); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 24px; text-align: center;">
+
+        <p id="quiz-progress"
+          style="color: var(--primary-color); font-weight: bold; font-size: 1.1rem; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 1rem;">
+          Question 1 of 15</p>
+
+        <h2 id="quiz-question"
+          style="font-size: 2rem; color: var(--text-primary); margin-bottom: 2.5rem; line-height: 1.4;">Loading
+          question...</h2>
+
+        <div id="quiz-options" class="quiz-options-grid">
+          <!-- Options injected via JavaScript -->
+        </div>
+
+        <div style="margin-top: 3rem; min-height: 50px;">
+          <button id="next-btn" class="btn" style="display: none;" onclick="nextQuestion()">Next Question →</button>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <script src="quiz.js"></script>
+
+</body>
+
+</html>

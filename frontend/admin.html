@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard | FinVerse</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    .admin-container {
+      max-width: 800px;
+      margin: 80px auto;
+      padding: 0 1.5rem;
+    }
+    .auth-section {
+      margin-bottom: 2rem;
+      border-bottom: 1px solid var(--glass-border);
+      padding-bottom: 2rem;
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="index.html" class="brand" style="display: flex; align-items: center; gap: 15px;">
+      <img src="Logo.jpeg" alt="FinVerse Logo" style="height: 65px; border-radius: 12px;">
+      Fin<span>Verse</span>
+    </a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="blogs.html">Blogs</a>
+      <a href="learn.html">Learn</a>
+      <a href="about.html">About Me</a>
+    </div>
+  </nav>
+
+  <div class="admin-container">
+    <div class="card visible">
+      <h1 style="font-size: 2.5rem; margin-bottom: 1.5rem; text-align: center; background: linear-gradient(90deg, var(--primary-color), var(--secondary-color)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+        Admin Dashboard
+      </h1>
+      <p style="text-align: center; color: var(--text-secondary); margin-bottom: 2.5rem;">
+        Publish new financial insights and articles directly to FinVerse.
+      </p>
+
+      <!-- Auth Verification Section -->
+      <div class="auth-section">
+        <div class="form-group">
+          <label for="adminToken"><i class="fa-solid fa-key" style="color: var(--secondary-color); margin-right: 8px;"></i> Admin Access Token</label>
+          <input type="password" id="adminToken" class="input-field" placeholder="Enter your secret admin token" required>
+          <div style="margin-top: 0.8rem; display: flex; align-items: center; gap: 0.5rem; color: var(--text-secondary); font-size: 0.9rem;">
+            <input type="checkbox" id="rememberToken" checked style="cursor: pointer; width: 16px; height: 16px;">
+            <label for="rememberToken" style="margin: 0; text-transform: none; letter-spacing: normal; font-size: 0.95rem; cursor: pointer;">Remember token for this session</label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Article Composition Form -->
+      <form id="adminPublishForm">
+        <div class="form-group">
+          <label for="postTitle">Blog Post Title</label>
+          <input type="text" id="postTitle" class="input-field" placeholder="e.g. The Global Commodities Surge: What To Expect" required>
+        </div>
+
+        <div class="form-group">
+          <label for="postContent">Blog Content (HTML Tags Supported)</label>
+          <textarea id="postContent" class="input-field" placeholder="Type your blog content here. You can use standard HTML tags like <strong>, <em>, <h3>, <br>, etc." required></textarea>
+        </div>
+
+        <button type="submit" class="btn" style="width: 100%; font-size: 1.1rem; padding: 1.2rem;" id="publishBtn">
+          <i class="fa-solid fa-paper-plane" style="margin-right: 8px;"></i> Publish Insight
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <div id="toast">Message goes here</div>
+
+  <script>
+    // Dynamically resolve backend API origin
+    const API_BASE = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') && window.location.port !== '8000'
+      ? 'http://localhost:8000'
+      : window.location.origin;
+
+    function showToast(message, isError = false) {
+      const toast = document.getElementById('toast');
+      if(!toast) return;
+      toast.innerText = message;
+      toast.style.borderColor = isError ? 'var(--secondary-color)' : 'var(--primary-color)';
+      toast.style.color = isError ? 'var(--secondary-color)' : 'var(--primary-color)';
+      toast.classList.add('show');
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 3000);
+    }
+
+    // Load saved session token if exists
+    document.addEventListener("DOMContentLoaded", () => {
+      const savedToken = sessionStorage.getItem('adminToken');
+      if (savedToken) {
+        document.getElementById('adminToken').value = savedToken;
+      }
+    });
+
+    // Handle Publish submission
+    const form = document.getElementById('adminPublishForm');
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const title = document.getElementById('postTitle').value.trim();
+      const content = document.getElementById('postContent').value.trim();
+      const token = document.getElementById('adminToken').value.trim();
+      const remember = document.getElementById('rememberToken').checked;
+      
+      if (!token) {
+        showToast("Access Token is required to publish posts!", true);
+        return;
+      }
+
+      const publishBtn = document.getElementById('publishBtn');
+      publishBtn.disabled = true;
+      publishBtn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin" style="margin-right: 8px;"></i> Publishing...';
+
+      try {
+        const response = await fetch(`${API_BASE}/posts/`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-Admin-Token': token
+          },
+          body: JSON.stringify({ title, content })
+        });
+
+        if (response.ok) {
+          const postData = await response.json();
+          showToast("Successfully published! Subscribers notified.");
+          form.reset();
+          
+          if (remember) {
+            sessionStorage.setItem('adminToken', token);
+          } else {
+            sessionStorage.removeItem('adminToken');
+          }
+          
+          // Re-populate token field after reset
+          document.getElementById('adminToken').value = token;
+        } else {
+          const errData = await response.json();
+          showToast(errData.detail || "Unauthorized! Please check your Admin Token.", true);
+        }
+      } catch (err) {
+        showToast("Network Error: Could not connect to API server.", true);
+      } finally {
+        publishBtn.disabled = false;
+        publishBtn.innerHTML = '<i class="fa-solid fa-paper-plane" style="margin-right: 8px;"></i> Publish Insight';
+      }
+    });
+  </script>
+</body>
+</html>
