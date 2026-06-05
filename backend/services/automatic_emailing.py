@@ -96,49 +96,93 @@ def send_welcome_email(recipient_email: str):
     html_content = """
     <!DOCTYPE html>
     <html>
-    <body style="font-family: Arial, sans-serif; background-color: #020205; color: #ffffff; margin: 0; padding: 40px 20px;">
-      <div style="max-width: 600px; margin: 0 auto; background: #0a0a10; border: 1px solid rgba(0, 240, 255, 0.2); border-radius: 16px; overflow: hidden; box-shadow: 0 0 20px rgba(0, 240, 255, 0.1);">
+    <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Welcome to FinVerse</title>
+    </head>
+    <body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: #050a0c; color: #ffffff; margin: 0; padding: 40px 10px;">
+      <div style="max-width: 600px; margin: 0 auto; background: #0b1316; border: 1px solid rgba(255, 255, 255, 0.06); border-radius: 24px; overflow: hidden; box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6), 0 0 30px rgba(188, 239, 204, 0.05); position: relative;">
         
-        <!-- Header -->
-        <div style="background: linear-gradient(90deg, #00f0ff, #ff007a); padding: 30px; text-align: center;">
-          <h1 style="color: #000000; margin: 0; font-size: 32px; font-weight: 900; text-transform: uppercase; letter-spacing: 2px;">FinVerse</h1>
+        <!-- Glowing Top Bar -->
+        <div style="height: 4px; background: linear-gradient(90deg, #bcefcc, #F2D07C);"></div>
+        
+        <!-- Header Section -->
+        <div style="padding: 40px 30px 20px 30px; text-align: center; border-bottom: 1px solid rgba(255, 255, 255, 0.04);">
+          <div style="display: inline-block; padding: 12px 24px; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); border-radius: 16px; margin-bottom: 15px;">
+            <h1 style="margin: 0; font-size: 32px; font-weight: 800; font-family: sans-serif; letter-spacing: 2px; text-transform: uppercase;">
+              <span style="color: #bcefcc;">Fin</span><span style="color: #ffffff;">Verse</span>
+            </h1>
+          </div>
+          <p style="margin: 0; color: #a0a5b5; font-size: 11px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;">Market Insights & Macro Research</p>
         </div>
         
         <!-- Body Content -->
-        <div style="padding: 40px 30px;">
-          <h2 style="color: #00f0ff; margin-top: 0; font-size: 24px;">Hi there,</h2>
-          <p style="font-size: 16px; line-height: 1.6; color: #e0e0e0;">Thank you so much for subscribing to the <strong>FinVerse</strong> blog! We are thrilled to have you in our community.</p>
+        <div style="padding: 30px 40px 40px 40px;">
+          <h2 style="color: #F2D07C; margin-top: 0; font-size: 22px; font-weight: 700; letter-spacing: -0.02em;">Welcome to the Inner Circle,</h2>
+          <p style="font-size: 15px; line-height: 1.7; color: #cfd3d6; margin-bottom: 20px;">Thank you so much for subscribing to the <strong>FinVerse</strong> digest. We are absolutely thrilled to have you join our community of forward-thinking investors and learners.</p>
           
-          <p style="font-size: 16px; line-height: 1.6; color: #e0e0e0;">Out of all the things you could've done today — doomscrolling, binge-watching, stress-eating — you chose to level up your finance game. Honestly? We're a little proud of you 🥹</p>
+          <p style="font-size: 15px; line-height: 1.7; color: #cfd3d6; margin-bottom: 30px;">Out of all the choices you could have made today, you chose to invest in your financial future and level up your finance game. Honestly? We're a little proud of you 🥹</p>
           
-          <!-- Gift Box Callout -->
-          <div style="background: rgba(255, 255, 255, 0.05); border-left: 4px solid #ff007a; padding: 20px; margin: 30px 0; border-radius: 0 8px 8px 0;">
-            <h3 style="margin-top: 0; color: #ff007a; font-size: 18px;">🎁 A Little Gift For You!</h3>
-            <p style="font-size: 15px; line-height: 1.5; color: #e0e0e0; margin-bottom: 0;">As a token of our appreciation, we've attached our exclusive PDF guide to this email. Consider it your financial starter pack.</p>
+          <!-- Gift Box Callout (Gold Glassmorphism) -->
+          <div style="background: rgba(242, 208, 124, 0.04); border: 1px solid rgba(242, 208, 124, 0.15); border-left: 4px solid #F2D07C; padding: 25px; margin: 30px 0; border-radius: 4px 16px 16px 4px;">
+            <h3 style="margin-top: 0; margin-bottom: 10px; color: #F2D07C; font-size: 18px; font-weight: 700; display: flex; align-items: center; gap: 8px;">🎁 A Special Gift For You</h3>
+            <p style="font-size: 14.5px; line-height: 1.6; color: #e0e0e0; margin: 0;">As a token of our appreciation, we have attached our exclusive PDF starter pack: <strong>The Basic Guide to Finance</strong> to this email. It is fully compiled and ready to read.</p>
           </div>
 
-          <p style="font-size: 16px; color: #00f0ff; font-weight: bold; text-transform: uppercase; letter-spacing: 1px;">Inside the PDF you'll find:</p>
-          <ul style="font-size: 16px; line-height: 1.7; color: #e0e0e0; padding-left: 20px;">
-            <li>📖 All the basic finance terms explained like you're 5</li>
-            <li>💡 Key concepts you need to actually understand our blogs</li>
-            <li>🧠 A cheat sheet so you never feel lost again</li>
-          </ul>
-          <p style="font-size: 13px; color: #a0a5b5; font-style: italic;">(Note: The Basic Guide to Finance pdf is attached to this email!).</p>
+          <div style="margin: 30px 0;">
+            <p style="font-size: 14px; color: #bcefcc; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 15px;">Inside the Guide, you'll unlock:</p>
+            <table style="width: 100%; border-collapse: collapse;">
+              <tr>
+                <td style="padding: 6px 0; vertical-align: top; width: 30px; font-size: 16px;">📖</td>
+                <td style="padding: 6px 0; font-size: 14.5px; color: #cfd3d6; line-height: 1.5;"><strong>Glossary of Terms:</strong> Macro and personal finance terms explained like you are five years old.</td>
+              </tr>
+              <tr>
+                <td style="padding: 6px 0; vertical-align: top; width: 30px; font-size: 16px;">💡</td>
+                <td style="padding: 6px 0; font-size: 14.5px; color: #cfd3d6; line-height: 1.5;"><strong>Core Concepts:</strong> Fundamental frameworks needed to decode market updates.</td>
+              </tr>
+              <tr>
+                <td style="padding: 6px 0; vertical-align: top; width: 30px; font-size: 16px;">🧠</td>
+                <td style="padding: 6px 0; font-size: 14.5px; color: #cfd3d6; line-height: 1.5;"><strong>Cheat Sheet:</strong> Actionable principles so you never get lost in the noise again.</td>
+              </tr>
+            </table>
+          </div>
 
-          <div style="border-top: 1px solid rgba(255,255,255,0.1); margin: 35px 0;"></div>
+          <hr style="border: 0; border-top: 1px solid rgba(255, 255, 255, 0.05); margin: 35px 0;">
           
-          <p style="font-size: 16px; color: #00f0ff; font-weight: bold; text-transform: uppercase; letter-spacing: 1px;">What's coming your way every week:</p>
-          <ul style="font-size: 16px; line-height: 1.7; color: #e0e0e0; padding-left: 20px;">
-            <li>📊 Market research, simplified</li>
-            <li>📈 Investment insights, no MBA required</li>
-            <li>💸 Money lessons that actually make sense</li>
-          </ul>
+          <div style="margin: 30px 0;">
+            <p style="font-size: 14px; color: #bcefcc; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 15px;">What's headed your way every week:</p>
+            <table style="width: 100%; border-collapse: collapse;">
+              <tr>
+                <td style="padding: 6px 0; vertical-align: top; width: 30px; font-size: 16px;">📊</td>
+                <td style="padding: 6px 0; font-size: 14.5px; color: #cfd3d6; line-height: 1.5;"><strong>Market Research:</strong> High-end summaries of institutional market shifts, simplified.</td>
+              </tr>
+              <tr>
+                <td style="padding: 6px 0; vertical-align: top; width: 30px; font-size: 16px;">📈</td>
+                <td style="padding: 6px 0; font-size: 14.5px; color: #cfd3d6; line-height: 1.5;"><strong>Investment Insights:</strong> Portfolio strategies and trends—no MBA required.</td>
+              </tr>
+              <tr>
+                <td style="padding: 6px 0; vertical-align: top; width: 30px; font-size: 16px;">💸</td>
+                <td style="padding: 6px 0; font-size: 14.5px; color: #cfd3d6; line-height: 1.5;"><strong>Practical Wealth Rules:</strong> Real-life money lessons that actually make sense.</td>
+              </tr>
+            </table>
+          </div>
 
-          <p style="font-size: 16px; line-height: 1.6; color: #e0e0e0; margin-top: 35px;">So go grab that PDF, make yourself a cup of chai ☕, and let's get this financial glow-up started!</p>
+          <!-- CTA Button Section -->
+          <div style="text-align: center; margin: 40px 0 20px 0;">
+            <a href="https://github.com/CraTerR19/Finance_Blog_Website" target="_blank" style="display: inline-block; padding: 16px 36px; background: linear-gradient(90deg, #bcefcc, #F2D07C); color: #050a0c; font-size: 15px; font-weight: 700; text-decoration: none; border-radius: 100px; box-shadow: 0 4px 15px rgba(188, 239, 204, 0.3); text-transform: uppercase; letter-spacing: 0.05em;">
+              Explore FinVerse Dashboard
+            </a>
+          </div>
+
+          <p style="font-size: 15px; line-height: 1.7; color: #cfd3d6; margin-top: 35px; text-align: center;">
+            Grab a hot cup of coffee ☕, open the PDF, and let's kickstart this wealth glow-up together!
+          </p>
           
-          <p style="font-size: 18px; color: #00f0ff; font-weight: bold; margin-top: 30px;">Stay curious, stay bullish! 🚀</p>
-          
-          <p style="font-size: 15px; line-height: 1.6; color: #a0a5b5; margin-top: 40px; font-weight: bold;">— The FinVerse Team</p>
+          <div style="text-align: center; margin-top: 40px; padding-top: 30px; border-top: 1px solid rgba(255, 255, 255, 0.05);">
+            <p style="font-size: 16px; color: #bcefcc; font-weight: 700; margin: 0 0 5px 0;">Stay curious, stay bullish! 🚀</p>
+            <p style="font-size: 13px; color: #a0a5b5; margin: 0;">— The FinVerse Team</p>
+          </div>
         </div>
       </div>
     </body>
