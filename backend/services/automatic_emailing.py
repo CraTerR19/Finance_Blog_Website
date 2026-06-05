@@ -4,6 +4,7 @@ from email.message import EmailMessage
 from dotenv import load_dotenv
 
 load_dotenv()
+import logging
 
 # User's App Password for Gmail securely loaded from env
 GMAIL_APP_PASSWORD = os.getenv("GMAIL_APP_PASSWORD", "")
@@ -26,9 +27,9 @@ def send_post_notification_email(recipient_email: str, blog_title: str):
         server = get_smtp_server()
         server.send_message(msg)
         server.quit()
-        print(f"Notification email sent successfully to {recipient_email}")
+        logging.info(f"Notification email sent successfully to {recipient_email}")
     except Exception as e:
-        print(f"Failed to send notification email to {recipient_email}: {e}")
+        logging.error(f"Failed to send notification email to {recipient_email}: {e}")
 
 def send_welcome_email(recipient_email: str):
     try:
@@ -122,11 +123,11 @@ def send_welcome_email(recipient_email: str):
                 pdf_data = f.read()
             msg.add_attachment(pdf_data, maintype='application', subtype='pdf', filename="Basic_Finance_Knowledge.pdf")
         else:
-            print(f"Note: PDF attachment '{pdf_path}' not found on server. Skipping attachment.")
+            logging.warning(f"Note: PDF attachment '{pdf_path}' not found on server. Skipping attachment.")
 
         server = get_smtp_server()
         server.send_message(msg)
         server.quit()
-        print(f"Welcome email sent successfully to {recipient_email}")
+        logging.info(f"Welcome email sent successfully to {recipient_email}")
     except Exception as e:
-        print(f"Failed to send welcome email to {recipient_email}: {e}")
+        logging.error(f"Failed to send welcome email to {recipient_email}: {e}")
