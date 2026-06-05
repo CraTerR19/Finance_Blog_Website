@@ -12,7 +12,7 @@ GMAIL_APP_PASSWORD = os.getenv("GMAIL_APP_PASSWORD", "")
 GMAIL_SENDER = os.getenv("GMAIL_SENDER", "finverse07@gmail.com")
 
 def get_smtp_server():
-    server = smtplib.SMTP_SSL("smtp.gmail.com", 465)
+    server = smtplib.SMTP_SSL("smtp.gmail.com", 465, timeout=15.0)
     server.login(GMAIL_SENDER, GMAIL_APP_PASSWORD)
     return server
 
