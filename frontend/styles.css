@@ -538,15 +538,15 @@ form textarea.input-field {
   box-shadow: 0 8px 25px rgba(225, 48, 108, 0.6);
 }
 
-/* Logo Cropping Wrapper using background-image to hide text */
+/* Logo Wrapper styling */
 .logo-wrapper {
   width: 65px;
   height: 65px;
   border-radius: 12px;
   border: 1px solid var(--glass-border);
   background-image: url('Logo.jpeg');
-  background-size: 200% auto;
-  background-position: center 8%;
+  background-size: contain;
+  background-position: center;
   background-repeat: no-repeat;
   background-color: rgba(255, 255, 255, 0.02);
 }

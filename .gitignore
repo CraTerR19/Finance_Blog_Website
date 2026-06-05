@@ -15,4 +15,5 @@ backend/.env
 *.pdf
 !basic_finance_knowledge.pdf
 *.jpeg
+!frontend/Logo.jpeg
 *.jpg
