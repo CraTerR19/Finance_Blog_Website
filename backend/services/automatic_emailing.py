@@ -25,8 +25,16 @@ def send_email_via_resend(to_email: str, subject: str, text_content: str, html_c
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
     }
 
+    # Resend does not allow sending from unverified public domains (like @gmail.com)
+    sender = RESEND_SENDER
+    public_domains = ["gmail.com", "yahoo.com", "outlook.com", "hotmail.com", "icloud.com", "aol.com", "mail.com"]
+    sender_domain = sender.split("@")[-1].lower() if "@" in sender else ""
+    if sender_domain in public_domains or not sender:
+        logging.warning(f"RESEND_SENDER '{sender}' uses an unverified public domain or is empty. Resend API requires domain ownership. Falling back to 'onboarding@resend.dev' for sandbox testing.")
+        sender = "onboarding@resend.dev"
+
     payload = {
-        "from": RESEND_SENDER,
+        "from": sender,
         "to": [to_email],
         "subject": subject,
         "text": text_content
