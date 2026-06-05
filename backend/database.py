@@ -8,6 +8,12 @@ load_dotenv()
 # Cloud databases provide their own connection string. This falls back to local.
 SQLALCHEMY_DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///../finance_blog.db")
 
+# Auto-fix dialect names for SQLAlchemy compatibility
+if SQLALCHEMY_DATABASE_URL.startswith("postgres://"):
+    SQLALCHEMY_DATABASE_URL = SQLALCHEMY_DATABASE_URL.replace("postgres://", "postgresql://", 1)
+elif SQLALCHEMY_DATABASE_URL.startswith("mysql://"):
+    SQLALCHEMY_DATABASE_URL = SQLALCHEMY_DATABASE_URL.replace("mysql://", "mysql+pymysql://", 1)
+
 engine = create_engine(
     SQLALCHEMY_DATABASE_URL,
     connect_args={"check_same_thread": False} if SQLALCHEMY_DATABASE_URL.startswith("sqlite") else {}
