@@ -10,8 +10,11 @@ load_dotenv()
 
 # Securely load Resend settings from environment variables
 RESEND_API_KEY = os.getenv("RESEND_API_KEY", "")
-# Default to Resend onboarding email if sender is not configured
 RESEND_SENDER = os.getenv("RESEND_SENDER", "onboarding@resend.dev")
+
+# Securely load Brevo settings from environment variables
+BREVO_API_KEY = os.getenv("BREVO_API_KEY", "")
+BREVO_SENDER = os.getenv("BREVO_SENDER", "")
 
 def send_email_via_resend(to_email: str, subject: str, text_content: str, html_content: str = None, pdf_path: str = None):
     if not RESEND_API_KEY:
@@ -72,11 +75,76 @@ def send_email_via_resend(to_email: str, subject: str, text_content: str, html_c
         logging.error(f"Failed to send email via Resend API to {to_email}: {e}")
         return False
 
+def send_email_via_brevo(to_email: str, subject: str, text_content: str, html_content: str = None, pdf_path: str = None):
+    if not BREVO_API_KEY:
+        logging.error("BREVO_API_KEY is not configured in the environment variables.")
+        return False
+
+    url = "https://api.brevo.com/v3/smtp/email"
+    headers = {
+        "api-key": BREVO_API_KEY,
+        "Content-Type": "application/json",
+        "Accept": "application/json",
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+    }
+
+    # Brevo sender (if not provided, default to an illustrative address)
+    sender_email = BREVO_SENDER if BREVO_SENDER else "welcome@finverse.com"
+    payload = {
+        "sender": {"name": "FinVerse Team", "email": sender_email},
+        "to": [{"email": to_email}],
+        "subject": subject,
+        "textContent": text_content
+    }
+
+    if html_content:
+        payload["htmlContent"] = html_content
+
+    if pdf_path and os.path.exists(pdf_path):
+        try:
+            with open(pdf_path, "rb") as f:
+                pdf_bytes = f.read()
+            pdf_base64 = base64.b64encode(pdf_bytes).decode("utf-8")
+            payload["attachment"] = [
+                {
+                    "content": pdf_base64,
+                    "name": os.path.basename(pdf_path)
+                }
+            ]
+        except Exception as e:
+            logging.warning(f"Note: PDF attachment '{pdf_path}' not found or could not be read: {e}. Skipping attachment.")
+
+    try:
+        data = json.dumps(payload).encode("utf-8")
+        req = urllib.request.Request(url, data=data, headers=headers, method="POST")
+        with urllib.request.urlopen(req) as res:
+            res_body = res.read().decode("utf-8")
+            logging.info(f"Email sent successfully via Brevo API to {to_email}. Response: {res_body}")
+            return True
+    except urllib.error.HTTPError as e:
+        error_body = e.read().decode("utf-8")
+        logging.error(f"Failed to send email via Brevo API to {to_email}. HTTP Error {e.code}: {error_body}")
+        return False
+    except Exception as e:
+        logging.error(f"Failed to send email via Brevo API to {to_email}: {e}")
+        return False
+
+def send_email(to_email: str, subject: str, text_content: str, html_content: str = None, pdf_path: str = None):
+    # Route dynamically depending on which API key is configured.
+    # We check BREVO_API_KEY first as it is the user's preferred domain-free option.
+    if BREVO_API_KEY:
+        return send_email_via_brevo(to_email, subject, text_content, html_content, pdf_path)
+    elif RESEND_API_KEY:
+        return send_email_via_resend(to_email, subject, text_content, html_content, pdf_path)
+    else:
+        logging.error("Neither BREVO_API_KEY nor RESEND_API_KEY is configured in the environment variables.")
+        return False
+
 def send_post_notification_email(recipient_email: str, blog_title: str):
     subject = "New FinVerse Insight Released"
     text_content = f"A new financial insight has been published: {blog_title}\n\nCheck it out at FinVerse!"
     html_content = f"<p>A new financial insight has been published: <strong>{blog_title}</strong></p><p>Check it out at FinVerse!</p>"
-    send_email_via_resend(recipient_email, subject, text_content, html_content)
+    send_email(recipient_email, subject, text_content, html_content)
 
 def send_welcome_email(recipient_email: str):
     subject = "Thank You for Subscribing to FinVerse! Welcome to the FinVerse Community!"
@@ -199,4 +267,4 @@ def send_welcome_email(recipient_email: str):
     """
     
     pdf_path = "basic_finance_knowledge.pdf"
-    send_email_via_resend(recipient_email, subject, text_content, html_content, pdf_path)
+    send_email(recipient_email, subject, text_content, html_content, pdf_path)
