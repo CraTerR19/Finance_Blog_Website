@@ -176,7 +176,7 @@ def submit_contact(contact: schemas.ContactCreate, db: Session = Depends(get_db)
 def subscribe(subscriber: schemas.SubscriberCreate, background_tasks: BackgroundTasks, db: Session = Depends(get_db)):
     existing = db.query(models.Subscriber).filter(models.Subscriber.email == subscriber.email).first()
     if existing:
-        raise HTTPException(status_code=400, detail="This email is already subscribed.")
+        raise HTTPException(status_code=400, detail="You have already subscribed")
     db_sub = models.Subscriber(email=subscriber.email)
     db.add(db_sub)
     db.commit()
