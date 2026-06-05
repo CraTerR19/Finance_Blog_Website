@@ -176,7 +176,7 @@ def submit_contact(contact: schemas.ContactCreate, db: Session = Depends(get_db)
 def subscribe(subscriber: schemas.SubscriberCreate, background_tasks: BackgroundTasks, db: Session = Depends(get_db)):
     existing = db.query(models.Subscriber).filter(models.Subscriber.email == subscriber.email).first()
     if existing:
-        return {"message": "Already subscribed"}
+        raise HTTPException(status_code=400, detail="This email is already subscribed.")
     db_sub = models.Subscriber(email=subscriber.email)
     db.add(db_sub)
     db.commit()
@@ -185,6 +185,11 @@ def subscribe(subscriber: schemas.SubscriberCreate, background_tasks: Background
     background_tasks.add_task(send_welcome_email, subscriber.email)
     
     return {"message": "Subscribed successfully! Welcome email dispatched."}
+
+@app.get("/subscribers/", response_model=List[schemas.SubscriberResponse])
+def get_subscribers(db: Session = Depends(get_db), verify: str = Depends(verify_admin_token)):
+    return db.query(models.Subscriber).order_by(models.Subscriber.subscribed_at.desc()).all()
+
 
 @app.get("/learn/", response_model=List[schemas.LearnModuleResponse])
 def get_learn_modules(db: Session = Depends(get_db)):

@@ -17,6 +17,30 @@
       border-bottom: 1px solid var(--glass-border);
       padding-bottom: 2rem;
     }
+    .subscribers-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1.5rem;
+    }
+    .subscribers-table th, .subscribers-table td {
+      padding: 1.2rem 1.5rem;
+      text-align: left;
+      border-bottom: 1px solid var(--glass-border);
+    }
+    .subscribers-table th {
+      color: var(--secondary-color);
+      font-family: 'Syne', sans-serif;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+    .subscribers-table td {
+      color: var(--text-primary);
+      font-size: 1rem;
+    }
+    .subscribers-table tr:hover {
+      background: rgba(255, 255, 255, 0.02);
+    }
   </style>
 </head>
 <body>
@@ -71,6 +95,37 @@
         </button>
       </form>
     </div>
+
+    <!-- Subscribers List Section -->
+    <div class="card visible" style="margin-top: 3rem;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
+        <h2 style="font-size: 1.8rem; background: linear-gradient(90deg, var(--primary-color), var(--secondary-color)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+          Subscribers List
+        </h2>
+        <button id="refreshSubscribersBtn" class="btn" style="padding: 0.6rem 1.5rem; font-size: 0.9rem; border-radius: 8px;">
+          <i class="fa-solid fa-rotate-right" style="margin-right: 5px;"></i> Refresh
+        </button>
+      </div>
+      
+      <div style="overflow-x: auto;">
+        <table class="subscribers-table">
+          <thead>
+            <tr>
+              <th style="width: 80px;">#</th>
+              <th>Email Address</th>
+              <th>Subscribed At</th>
+            </tr>
+          </thead>
+          <tbody id="subscribersList">
+            <tr>
+              <td colspan="3" style="text-align: center; color: var(--text-secondary);">
+                Enter Admin Access Token to load subscribers.
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
 
   <div id="toast">Message goes here</div>
@@ -93,11 +148,67 @@
       }, 3000);
     }
 
+    async function fetchSubscribers() {
+      const token = document.getElementById('adminToken').value.trim();
+      const listContainer = document.getElementById('subscribersList');
+      if (!listContainer) return;
+
+      if (!token) {
+        listContainer.innerHTML = '<tr><td colspan="3" style="text-align: center; color: var(--text-secondary);">Enter Admin Access Token to load subscribers.</td></tr>';
+        return;
+      }
+
+      listContainer.innerHTML = '<tr><td colspan="3" style="text-align: center; color: var(--text-secondary);"><i class="fa-solid fa-circle-notch fa-spin" style="margin-right: 8px;"></i>Loading subscribers...</td></tr>';
+
+      try {
+        const response = await fetch(`${API_BASE}/subscribers/`, {
+          method: 'GET',
+          headers: {
+            'X-Admin-Token': token
+          }
+        });
+
+        if (response.ok) {
+          const subscribers = await response.json();
+          if (subscribers.length === 0) {
+            listContainer.innerHTML = '<tr><td colspan="3" style="text-align: center; color: var(--text-secondary);">No subscribers yet.</td></tr>';
+            return;
+          }
+          listContainer.innerHTML = '';
+          subscribers.forEach((sub, idx) => {
+            const row = document.createElement('tr');
+            const dateStr = new Date(sub.subscribed_at).toLocaleString();
+            row.innerHTML = `
+              <td style="color: var(--text-secondary); font-weight: 500;">${idx + 1}</td>
+              <td style="font-weight: 600; color: var(--text-primary);">${sub.email}</td>
+              <td style="color: var(--text-secondary);">${dateStr}</td>
+            `;
+            listContainer.appendChild(row);
+          });
+        } else {
+          listContainer.innerHTML = '<tr><td colspan="3" style="text-align: center; color: var(--secondary-color);">Failed to load subscribers. Check your Admin Token.</td></tr>';
+        }
+      } catch (err) {
+        listContainer.innerHTML = '<tr><td colspan="3" style="text-align: center; color: var(--secondary-color);">Network error loading subscribers.</td></tr>';
+      }
+    }
+
     // Load saved session token if exists
     document.addEventListener("DOMContentLoaded", () => {
       const savedToken = sessionStorage.getItem('adminToken');
       if (savedToken) {
         document.getElementById('adminToken').value = savedToken;
+        fetchSubscribers();
+      }
+
+      const refreshBtn = document.getElementById('refreshSubscribersBtn');
+      if (refreshBtn) {
+        refreshBtn.addEventListener('click', fetchSubscribers);
+      }
+
+      const tokenInput = document.getElementById('adminToken');
+      if (tokenInput) {
+        tokenInput.addEventListener('change', fetchSubscribers);
       }
     });
 

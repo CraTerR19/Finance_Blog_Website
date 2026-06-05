@@ -46,6 +46,13 @@ class ContactCreate(BaseModel):
 class SubscriberCreate(BaseModel):
     email: str
 
+class SubscriberResponse(BaseModel):
+    id: int
+    email: str
+    subscribed_at: datetime
+    class Config:
+        orm_mode = True
+
 class QuizQuestionBase(BaseModel):
     question_text: str
     options: str # Should be valid JSON string array

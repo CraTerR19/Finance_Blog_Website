@@ -26,6 +26,20 @@ if(subscribeForm) {
         body: JSON.stringify({ email })
       });
       const data = await res.json();
+      if (!res.ok) {
+        let errMsg = 'Error subscribing. Try again.';
+        if (data && data.detail) {
+          if (Array.isArray(data.detail)) {
+            errMsg = data.detail.map(err => err.msg).join(', ');
+          } else {
+            errMsg = data.detail;
+          }
+        } else if (data && data.message) {
+          errMsg = data.message;
+        }
+        showToast(errMsg);
+        return;
+      }
       showToast(data.message || 'Subscribed successfully!');
       subscribeForm.reset();
     } catch(err) {
@@ -54,6 +68,20 @@ if(contactForm) {
         body: JSON.stringify(body)
       });
       const data = await res.json();
+      if (!res.ok) {
+        let errMsg = 'Error saving data.';
+        if (data && data.detail) {
+          if (Array.isArray(data.detail)) {
+            errMsg = data.detail.map(err => err.msg).join(', ');
+          } else {
+            errMsg = data.detail;
+          }
+        } else if (data && data.message) {
+          errMsg = data.message;
+        }
+        showToast(errMsg);
+        return;
+      }
       showToast(data.message || 'Saved successfully!');
       contactForm.reset();
     } catch(err) {
