@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Insight Detail | FinVerse</title>
+  <link rel="stylesheet" href="styles.css?v=3">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    /* Reading Progress Bar */
+    .progress-bar-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: transparent;
+      z-index: 2000;
+    }
+    
+    .progress-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+      box-shadow: 0 0 10px var(--primary-color);
+      transition: width 0.1s ease-out;
+    }
+
+    /* Detail View Adjustments */
+    .blog-detail-container {
+      max-width: 850px;
+      margin: 40px auto 80px auto;
+      padding: 0 1.5rem;
+    }
+    
+    .back-btn {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--glass-border);
+      color: var(--text-secondary);
+      border-radius: 100px;
+      padding: 0.7rem 1.5rem;
+      font-size: 0.95rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: var(--transition);
+      margin-bottom: 2.5rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      font-weight: 600;
+    }
+    
+    .back-btn:hover {
+      border-color: rgba(255, 255, 255, 0.2);
+      color: var(--text-primary);
+      transform: translateX(-4px);
+      box-shadow: 0 5px 15px rgba(255,255,255,0.02);
+    }
+    
+    .detail-header {
+      margin-bottom: 3rem;
+      border-bottom: 1px solid var(--glass-border);
+      padding-bottom: 2.5rem;
+    }
+    
+    .detail-tag {
+      background: var(--primary-color-dim);
+      color: var(--primary-color);
+      padding: 0.3rem 1rem;
+      border-radius: 100px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      display: inline-block;
+      margin-bottom: 1.5rem;
+      border: 1px solid rgba(188, 239, 204, 0.2);
+    }
+    
+    .detail-title {
+      font-size: 3.2rem;
+      line-height: 1.2;
+      margin-bottom: 1.5rem;
+      font-weight: 800;
+      font-family: 'Syne', sans-serif;
+      background: linear-gradient(135deg, #ffffff 60%, var(--text-secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    
+    .detail-meta-info {
+      display: flex;
+      gap: 1.5rem;
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      font-weight: 400;
+      align-items: center;
+    }
+    
+    .detail-meta-info div {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    
+    /* Styled Content Inside Blog */
+    .blog-content {
+      font-size: 1.2rem;
+      line-height: 1.9;
+      color: #e2e4e9;
+      font-family: 'Outfit', sans-serif;
+    }
+    
+    .blog-content h3 {
+      font-size: 1.8rem;
+      margin: 2.5rem 0 1.2rem 0;
+      color: var(--text-primary);
+      font-family: 'Outfit', sans-serif;
+      font-weight: 600;
+      border-left: 3px solid var(--secondary-color);
+      padding-left: 15px;
+    }
+    
+    .blog-content p {
+      margin-bottom: 1.8rem;
+    }
+    
+    .blog-content ul, .blog-content ol {
+      margin-left: 2rem;
+      margin-bottom: 1.8rem;
+    }
+    
+    .blog-content li {
+      margin-bottom: 0.6rem;
+    }
+    
+    .blog-content strong {
+      color: #fff;
+      font-weight: 600;
+    }
+    
+    .blog-content em {
+      color: var(--text-secondary);
+      font-style: italic;
+    }
+    
+    /* YouTube Style Reaction Bar */
+    .reaction-bar {
+      display: flex;
+      gap: 1rem;
+      margin: 4rem 0;
+      border-top: 1px solid var(--glass-border);
+      border-bottom: 1px solid var(--glass-border);
+      padding: 1.5rem 0;
+    }
+    
+    .reaction-pill-btn {
+      cursor: pointer;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--glass-border);
+      border-radius: 100px;
+      padding: 0.6rem 1.6rem;
+      color: var(--text-primary);
+      font-size: 1rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      transition: var(--transition);
+      font-family: 'Outfit', sans-serif;
+    }
+    
+    .reaction-pill-btn:hover {
+      background: rgba(255, 255, 255, 0.05);
+      transform: translateY(-2px);
+    }
+    
+    .reaction-pill-btn.active-like {
+      border-color: var(--primary-color);
+      color: var(--primary-color);
+      box-shadow: 0 0 15px var(--primary-color-dim);
+    }
+    
+    .reaction-pill-btn.active-dislike {
+      border-color: var(--secondary-color);
+      color: var(--secondary-color);
+      box-shadow: 0 0 15px var(--secondary-color-dim);
+    }
+    
+    /* Comment Section Stylings */
+    .comments-header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+    }
+    
+    .comments-header-row h3 {
+      font-size: 1.8rem;
+      color: var(--text-primary);
+    }
+    
+    .comment-card {
+      background: rgba(255, 255, 255, 0.01);
+      border: 1px solid var(--glass-border);
+      border-radius: 24px;
+      padding: 2rem;
+      margin-bottom: 1.5rem;
+      transition: var(--transition);
+      display: flex;
+      gap: 1.2rem;
+    }
+    
+    .comment-card:hover {
+      background: rgba(255, 255, 255, 0.02);
+      border-color: rgba(255, 255, 255, 0.12);
+    }
+    
+    .avatar-circle {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: #000;
+      flex-shrink: 0;
+    }
+    
+    .comment-body {
+      flex-grow: 1;
+    }
+    
+    .comment-author-meta {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 0.6rem;
+    }
+    
+    .comment-author-name {
+      font-weight: 600;
+      color: var(--text-primary);
+      font-size: 1.05rem;
+    }
+    
+    .comment-date {
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+    }
+    
+    .comment-txt {
+      color: #c9d1d9;
+      font-size: 1.05rem;
+      line-height: 1.6;
+      margin-bottom: 1rem;
+    }
+    
+    .comment-reactions {
+      display: flex;
+      gap: 1rem;
+    }
+    
+    .comment-react-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-secondary);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.9rem;
+      transition: var(--transition);
+    }
+    
+    .comment-react-btn:hover {
+      color: var(--text-primary);
+    }
+
+    /* Comment Form Container */
+    .comment-form-container {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--glass-border);
+      border-radius: 32px;
+      padding: 3rem;
+      margin-top: 4rem;
+    }
+  </style>
+</head>
+<body>
+  <!-- Progress Bar -->
+  <div class="progress-bar-container">
+    <div class="progress-bar" id="readingProgress"></div>
+  </div>
+
+  <nav>
+    <a href="index.html" class="brand" style="display: flex; align-items: center; gap: 15px;">
+      <div class="logo-wrapper"></div>
+      Fin<span>Verse</span>
+    </a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="blogs.html" class="active">Blogs</a>
+      <a href="learn.html">Learn</a>
+      <a href="about.html">About Me</a>
+      <div style="display: flex; gap: 0.8rem; margin-left: 1rem;">
+        <a href="https://www.linkedin.com/in/samarth-yanjane-513295374?utm_source=share_via&utm_content=profile&utm_medium=member_android" target="_blank" class="social-icon linkedin" title="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+        <a href="https://www.instagram.com/finverse.zone/" target="_blank" class="social-icon instagram" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+      </div>
+    </div>
+  </nav>
+
+  <section class="blog-detail-container" id="blog-wrapper">
+    <div id="blog-detail-view">
+      <!-- Nav Button -->
+      <button class="back-btn" onclick="window.location.href='blogs.html'">
+        <i class="fa-solid fa-arrow-left"></i> Back to Insights
+      </button>
+
+      <!-- Article Header -->
+      <div class="detail-header">
+        <span class="detail-tag" id="detail-category">Markets</span>
+        <h1 class="detail-title" id="detail-title">Loading insight...</h1>
+        
+        <div class="detail-meta-info">
+          <div>
+            <i class="fa-regular fa-calendar"></i>
+            <span id="detail-date">--/--/----</span>
+          </div>
+          <div>
+            <i class="fa-regular fa-clock"></i>
+            <span id="detail-readtime">3 min read</span>
+          </div>
+          <div>
+            <i class="fa-regular fa-user"></i>
+            <span>By Admin</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Article Body Content -->
+      <div class="blog-content" id="detail-content">
+        <p style="color: var(--text-secondary);">Retrieving content from server...</p>
+      </div>
+
+      <!-- YouTube Style Reaction Bar -->
+      <div class="reaction-bar">
+        <button id="postLikeBtn" onclick="handlePostReaction('like')" class="reaction-pill-btn">
+          <i class="fa-solid fa-thumbs-up"></i>
+          <span id="post-likes">0</span>
+        </button>
+        <button id="postDislikeBtn" onclick="handlePostReaction('dislike')" class="reaction-pill-btn">
+          <i class="fa-solid fa-thumbs-down"></i>
+          <span id="post-dislikes">0</span>
+        </button>
+      </div>
+
+      <!-- Views & Reviews Comment Section -->
+      <div class="comment-section">
+        <div class="comments-header-row">
+          <h3 id="comments-count-title">Views & Reviews (0)</h3>
+        </div>
+        
+        <!-- Thread List -->
+        <div id="comments-list">
+          <!-- Comments rendered dynamically -->
+        </div>
+        
+        <!-- Leave your view form -->
+        <div class="comment-form-container">
+          <h4 style="font-size: 1.4rem; margin-bottom: 1.5rem; font-family: 'Syne', sans-serif;">Share Your Analysis</h4>
+          <form id="commentForm">
+            <div class="form-group">
+              <label for="commentName">Your Name / Alias</label>
+              <input type="text" id="commentName" class="input-field" placeholder="e.g. Satoshi_99" required style="border-radius: 12px;">
+            </div>
+            <div class="form-group">
+              <label for="commentContent">Your Review / View</label>
+              <textarea id="commentContent" class="input-field" placeholder="Provide constructive criticism, data points, or share your outlook on this article..." required style="border-radius: 12px; min-height: 120px;"></textarea>
+            </div>
+            <button type="submit" class="btn" style="width: 100%; border-radius: 12px; padding: 1rem;">Post View</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div id="toast">Message goes here</div>
+
+  <!-- Progress Bar Logic & Scrolling -->
+  <script>
+    window.addEventListener('scroll', () => {
+      const winScroll = document.documentElement.scrollTop || document.body.scrollTop;
+      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const scrolled = (winScroll / height) * 100;
+      const pb = document.getElementById('readingProgress');
+      if (pb) pb.style.width = scrolled + '%';
+    });
+  </script>
+
+  <script src="app.js"></script>
+</body>
+</html>
