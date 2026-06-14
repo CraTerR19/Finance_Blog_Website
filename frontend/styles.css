@@ -20,12 +20,19 @@
   box-sizing: border-box;
 }
 
+html, body {
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
 body {
   font-family: 'Outfit', sans-serif;
   background-color: var(--bg-color);
   color: var(--text-primary);
   line-height: 1.6;
   overflow-x: hidden;
+  max-width: 100vw;
+  width: 100%;
   position: relative;
   min-height: 100vh;
 }
@@ -177,6 +184,9 @@ header.hero {
   border: 1px solid var(--glass-border);
   box-shadow: var(--glow-shadow);
   backdrop-filter: blur(10px);
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
 }
 
 .input-field {
@@ -247,7 +257,7 @@ section {
 /* Glassmorphic Cards (The actual DeFi Look) */
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(30%, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 2rem;
 }
 
@@ -568,68 +578,96 @@ html {
   padding: 0 1rem;
 }
 
-/* Mobile first (≤360px) */
-@media (max-width: 360px) {
+/* Mobile first (≤480px) */
+@media (max-width: 480px) {
   nav {
     flex-direction: column;
     align-items: center;
-    padding: 0.8rem 2%;
+    padding: 1rem 5%;
   }
   .nav-links {
     flex-direction: column;
-    gap: 0.5rem;
-    margin-top: 0.5rem;
+    gap: 1rem;
+    margin-top: 1rem;
     align-items: center;
+    width: 100%;
   }
   .admin-container {
     width: 100%;
-    margin: 20px auto;
-    padding: 0 0.5rem;
+    margin: 30px auto;
+    padding: 0 1rem;
+  }
+  .subscribe-form {
+    flex-direction: column;
+    border-radius: 20px;
+    padding: 1.5rem;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+  }
+  .subscribe-form .input-field {
+    width: 100%;
+    min-width: unset;
+    border-radius: 100px;
+    border: 1px solid var(--glass-border);
+    background: rgba(255,255,255,0.05);
+  }
+  .subscribe-form .btn {
+    width: 100%;
   }
   .input-field {
-    padding: 0.8rem 1rem;
-    font-size: 0.9rem;
+    padding: 1rem;
+    font-size: 1rem;
   }
   .btn {
-    padding: 0.8rem 1.5rem;
-    font-size: 0.85rem;
+    padding: 1rem;
+    font-size: 0.95rem;
   }
   .subscribers-table th, .subscribers-table td {
-    padding: 0.6rem 0.8rem;
+    padding: 0.8rem 1rem;
   }
   .subscribers-table {
-    font-size: 0.75rem;
+    font-size: 0.85rem;
+  }
+  .card {
+    padding: 2rem 1.5rem;
+  }
+  .hero p {
+    max-width: 90%;
+  }
+  .social-links-container {
+    margin-left: 0 !important;
+    justify-content: center;
+    margin-top: 0.5rem;
   }
 }
 
-/* Small tablets (361px – 768px) */
-@media (min-width: 361px) and (max-width: 768px) {
+/* Tablets (481px – 768px) */
+@media (min-width: 481px) and (max-width: 768px) {
   nav {
-    flex-direction: row;
-    justify-content: space-between;
-    padding: 1rem 3%;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem 5%;
   }
   .nav-links {
-    gap: 1rem;
+    gap: 1.5rem;
     flex-wrap: wrap;
     justify-content: center;
+    margin-top: 1rem;
   }
   .admin-container {
     width: 95%;
-    margin: 30px auto;
+    margin: 40px auto;
   }
-  .grid {
-    grid-template-columns: repeat(auto-fit, minmax(45%, 1fr));
+  .hero p {
+    max-width: 80%;
   }
 }
 
 /* Large tablets / small desktops (769px – 1024px) */
 @media (min-width: 769px) and (max-width: 1024px) {
   .nav-links {
-    gap: 1.2rem;
-  }
-  .grid {
-    grid-template-columns: repeat(auto-fit, minmax(30%, 1fr));
+    gap: 1.5rem;
   }
   .admin-container {
     max-width: 800px;
