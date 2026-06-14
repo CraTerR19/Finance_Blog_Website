@@ -550,3 +550,41 @@ form textarea.input-field {
   background-repeat: no-repeat;
   background-color: rgba(255, 255, 255, 0.02);
 }
+
+/* Responsive Breakpoints */
+@media (max-width: 480px) {
+  nav {
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem 2%;
+  }
+  .nav-links {
+    flex-direction: column;
+    gap: 0.8rem;
+    margin-top: 0.5rem;
+    align-items: center;
+  }
+  .admin-container {
+    width: 95%;
+    margin: 40px auto;
+    padding: 0 1rem;
+  }
+  .subscribers-table {
+    font-size: 0.85rem;
+  }
+  .btn {
+    padding: 1rem 2rem;
+    font-size: 0.9rem;
+  }
+}
+@media (min-width: 481px) and (max-width: 1024px) {
+  .nav-links {
+    gap: 1.5rem;
+  }
+  .grid {
+    grid-template-columns: repeat(auto-fit, minmax(45%, 1fr));
+  }
+  .admin-container {
+    padding: 0 2rem;
+  }
+}
