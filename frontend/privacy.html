@@ -3,22 +3,55 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>About Me | FinVerse</title>
+  <title>Privacy Policy | FinVerse</title>
   <link rel="stylesheet" href="styles.css?v=3">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
-    .about-split {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 4rem;
-      align-items: start;
+    .policy-container {
+      max-width: 850px;
+      margin: 80px auto 40px auto;
+      padding: 0 1.5rem;
     }
-    @media(max-width: 768px) {
-      .about-split { grid-template-columns: 1fr; }
+    .policy-card {
+      padding: 3rem;
+      margin-bottom: 2rem;
     }
-    .about-text {
-      font-size: 1.1rem;
+    .policy-card h1 {
+      font-size: 2.8rem;
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, #ffffff 60%, var(--text-secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .policy-card p {
       color: var(--text-secondary);
+      margin-bottom: 1.5rem;
+      font-size: 1.05rem;
+      line-height: 1.8;
+    }
+    .policy-card h2 {
+      color: var(--primary-color);
+      font-size: 1.5rem;
+      margin: 2rem 0 1rem 0;
+      font-family: 'Syne', sans-serif;
+    }
+    .policy-card ul {
+      list-style: none;
+      padding-left: 0;
+      margin-bottom: 1.5rem;
+    }
+    .policy-card ul li {
+      color: var(--text-secondary);
+      margin-bottom: 0.8rem;
+      padding-left: 1.5rem;
+      position: relative;
+    }
+    .policy-card ul li::before {
+      content: "•";
+      color: var(--secondary-color);
+      position: absolute;
+      left: 0;
+      font-weight: bold;
     }
   </style>
 </head>
@@ -32,7 +65,7 @@
       <a href="index.html">Home</a>
       <a href="blogs.html">Blogs</a>
       <a href="learn.html">Learn</a>
-      <a href="about.html" class="active">About Me</a>
+      <a href="about.html">About Me</a>
       <div class="dropdown">
         <button class="dropbtn">Tools <i class="fa-solid fa-chevron-down" style="font-size: 0.8em; margin-left: 5px;"></i></button>
         <div class="dropdown-content">
@@ -47,55 +80,39 @@
     </div>
   </nav>
 
-  <section style="margin-top: 80px;">
-    <div class="about-split">
-      <div class="card visible">
-        <h1 style="font-size: 2.5rem; margin-bottom: 1.5rem;">The Person Behind the Screen</h1>
-        <p class="about-text">
-          Hi, I'm Samarth Yanjane, the creator of FinVerse. With a deep passion for financial markets, macroeconomics, and equity research, I started this platform to cut through the noise.
-          <br><br>
-          Every week, I analyze the most significant news and data to bring you actionable insights with the help of AI and other resources (I'm not a financial advisor, just a finance enthusiast). Whether it's shifting monetary policies, earnings reports, or unprecedented market swings, my goal is to help you understand the "why" behind the numbers.
-        </p>
-        <div style="margin-top: 3rem; display: flex; flex-wrap: wrap; gap: 1.5rem;">
-          <a href="https://www.linkedin.com/in/samarth-yanjane-513295374?utm_source=share_via&utm_content=profile&utm_medium=member_android" target="_blank" class="connect-btn linkedin-btn"><i class="fa-brands fa-linkedin"></i>Connect on LinkedIn</a>
-          <a href="https://www.instagram.com/finverse.zone/" target="_blank" class="connect-btn instagram-btn"><i class="fa-brands fa-instagram"></i>Follow on Instagram</a>
-        </div>
-      </div>
+  <div class="policy-container">
+    <div class="card policy-card">
+      <h1>Privacy Policy</h1>
+      <p style="font-size: 0.9rem; color: var(--secondary-color); text-transform: uppercase; letter-spacing: 2px;">Last Updated: June 14, 2026</p>
+      
+      <p>At FinVerse, accessible from index.html, one of our main priorities is the privacy of our visitors. This Privacy Policy document contains types of information that is collected and recorded by FinVerse and how we use it.</p>
 
-      <div class="card visible">
-        <h2 style="margin-bottom: 1.5rem;">Contact Us</h2>
-        <p style="color: var(--text-secondary); margin-bottom: 1.5rem;">Got a question or feedback about the site? Drop your details below.</p>
-        <form id="contactForm">
-          <div class="form-group">
-            <label>Name</label>
-            <input type="text" id="contactName" class="input-field" required>
-          </div>
-          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
-            <div class="form-group">
-              <label>Phone No.</label>
-              <input type="tel" id="contactPhone" class="input-field" required>
-            </div>
-            <div class="form-group">
-              <label>Email Address</label>
-              <input type="email" id="contactEmail" class="input-field" required>
-            </div>
-          </div>
-          <div class="form-group">
-            <label>Preferred Contact Method</label>
-            <div style="display: flex; gap: 1rem; margin-top: 0.5rem; color: var(--text-secondary);">
-              <label><input type="radio" name="contactMethod" value="Email" checked> Email</label>
-              <label><input type="radio" name="contactMethod" value="Phone"> Phone</label>
-            </div>
-          </div>
-          <div class="form-group">
-            <label>Review / Message</label>
-            <textarea id="contactReview" class="input-field" required></textarea>
-          </div>
-          <button type="submit" class="btn" style="width: 100%;">Submit Message</button>
-        </form>
-      </div>
+      <h2>1. Information We Collect</h2>
+      <p>We may collect personal information that you provide to us directly, such as when you subscribe to our newsletter or fill out the contact form. This information may include:</p>
+      <ul>
+        <li>Your Name</li>
+        <li>Your Email Address</li>
+        <li>Your Phone Number</li>
+        <li>Any messages or feedback you submit</li>
+      </ul>
+
+      <h2>2. How We Use Your Information</h2>
+      <p>We use the information we collect in various ways, including to:</p>
+      <ul>
+        <li>Provide, operate, and maintain our website</li>
+        <li>Improve, personalize, and expand our website</li>
+        <li>Understand and analyze how you use our website</li>
+        <li>Develop new products, services, features, and functionality</li>
+        <li>Communicate with you to send newsletter updates or reply to support messages</li>
+      </ul>
+
+      <h2>3. Log Files and Analytics</h2>
+      <p>FinVerse follows a standard procedure of using log files. These files log visitors when they visit websites. The information collected by log files includes internet protocol (IP) addresses, browser type, Internet Service Provider (ISP), date and time stamp, referring/exit pages, and possibly the number of clicks. These are not linked to any information that is personally identifiable.</p>
+
+      <h2>4. Consent</h2>
+      <p>By using our website, you hereby consent to our Privacy Policy and agree to its terms.</p>
     </div>
-  </section>
+  </div>
 
   <footer class="site-footer">
     <div class="footer-grid">
@@ -142,9 +159,5 @@
       </div>
     </div>
   </footer>
-
-  <div id="toast">Message goes here</div>
-
-  <script src="app.js"></script>
 </body>
 </html>

@@ -3,10 +3,43 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>FinVerse | Financial Insights & News</title>
-  <meta name="description" content="Weekly financial blogs, news analysis, and market insights.">
+  <title>Portfolio Management Services | FinVerse</title>
   <link rel="stylesheet" href="styles.css?v=3">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    /* PMS Card Specific Styles */
+    .pms-overlay {
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(10, 18, 21, 0.85);
+      backdrop-filter: blur(8px);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 10;
+      border-radius: 32px;
+      text-align: center;
+    }
+    .pms-overlay i {
+      font-size: 3.5rem;
+      color: var(--secondary-color);
+      margin-bottom: 1.5rem;
+      filter: drop-shadow(0 0 15px rgba(242, 208, 124, 0.4));
+    }
+    .pms-overlay h3 {
+      font-size: 2.5rem;
+      color: var(--text-primary);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 0.5rem;
+    }
+    .pms-overlay p {
+      color: var(--text-secondary);
+      font-size: 1.2rem;
+      font-weight: 300;
+    }
+  </style>
 </head>
 <body>
   <nav>
@@ -15,12 +48,12 @@
       Fin<span>Verse</span>
     </a>
     <div class="nav-links">
-      <a href="index.html" class="active">Home</a>
+      <a href="index.html">Home</a>
       <a href="blogs.html">Blogs</a>
       <a href="learn.html">Learn</a>
       <a href="about.html">About Me</a>
       <div class="dropdown">
-        <button class="dropbtn">Tools <i class="fa-solid fa-chevron-down" style="font-size: 0.8em; margin-left: 5px;"></i></button>
+        <button class="dropbtn active">Tools <i class="fa-solid fa-chevron-down" style="font-size: 0.8em; margin-left: 5px;"></i></button>
         <div class="dropdown-content">
           <a href="sip-calculator.html">SIP Calculator</a>
           <a href="pms.html">PMS</a>
@@ -33,18 +66,36 @@
     </div>
   </nav>
 
-  <header class="hero">
-    <h1>Master the Markets.</h1>
-    <p>Weekly financial blog posts analyzing the latest news, market trends, and economic shifts. Subscribe to never miss an insight.</p>
-    
-    <form class="subscribe-form" id="subscribeForm">
-      <input type="email" class="input-field" id="subEmail" placeholder="Enter your email address" required>
-      <button type="submit" class="btn">Subscribe</button>
-    </form>
-    <p style="font-size: 0.95rem; color: var(--text-secondary); max-width: 500px; font-weight: 500; letter-spacing: 0.05em;">
-      ✨ <strong style="color: var(--primary-color);">It's 100% free!</strong> Subscribe to receive instant updates directly to your inbox whenever new blogs are posted.
+  <section style="margin-top: 50px;">
+    <h1 class="section-title">Portfolio Management Services</h1>
+    <p style="text-align: center; color: var(--text-secondary); font-size: 1.2rem; max-width: 600px; margin: -2rem auto 3rem auto; font-weight: 300; line-height: 1.6;">
+      Premium wealth management and institutional-grade portfolio allocation tailored for high net-worth individuals.
     </p>
-  </header>
+
+    <div class="grid" style="grid-template-columns: 1fr;">
+      <!-- PMS Card -->
+      <div class="card" style="padding: 3.5rem; max-width: 800px; margin: 0 auto; width: 100%; position: relative; min-height: 400px;">
+        <h3 style="display: flex; align-items: center; justify-content: center; gap: 10px; font-size: 1.8rem; margin-bottom: 1.5rem;">
+          <i class="fa-solid fa-briefcase" style="color: var(--secondary-color);"></i> Institutional Grade Allocation
+        </h3>
+        
+        <!-- Mock Content underneath -->
+        <ul style="list-style: none; margin-top: 2rem; color: var(--text-secondary); line-height: 2.5; font-size: 1.1rem; max-width: 500px; margin-left: auto; margin-right: auto;">
+          <li><i class="fa-solid fa-check" style="color: var(--primary-color); margin-right: 10px;"></i> Customized Asset Allocation</li>
+          <li><i class="fa-solid fa-check" style="color: var(--primary-color); margin-right: 10px;"></i> Risk-Adjusted Returns</li>
+          <li><i class="fa-solid fa-check" style="color: var(--primary-color); margin-right: 10px;"></i> Active Market Monitoring</li>
+          <li><i class="fa-solid fa-check" style="color: var(--primary-color); margin-right: 10px;"></i> Dedicated Wealth Manager</li>
+          <li><i class="fa-solid fa-check" style="color: var(--primary-color); margin-right: 10px;"></i> Direct Equity Exposure</li>
+        </ul>
+
+        <div class="pms-overlay">
+          <i class="fa-solid fa-lock"></i>
+          <h3>Coming Soon</h3>
+          <p>We are building something exclusive.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <footer class="site-footer">
     <div class="footer-grid">
@@ -91,9 +142,5 @@
       </div>
     </div>
   </footer>
-
-  <div id="toast">Message goes here</div>
-
-  <script src="app.js"></script>
 </body>
 </html>

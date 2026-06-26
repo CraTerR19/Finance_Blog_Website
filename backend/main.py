@@ -130,6 +130,17 @@ def modify_post(post_id: int, post: schemas.PostCreate, db: Session = Depends(ge
         raise HTTPException(status_code=404, detail="Post not found")
     return updated_post
 
+@app.delete("/posts/{post_id}")
+def delete_post(post_id: int, db: Session = Depends(get_db), verify: str = Depends(verify_admin_token)):
+    post = db.query(models.Post).filter(models.Post.id == post_id).first()
+    if not post:
+        raise HTTPException(status_code=404, detail="Post not found")
+    # Delete associated comments first
+    db.query(models.Comment).filter(models.Comment.post_id == post_id).delete()
+    db.delete(post)
+    db.commit()
+    return {"message": f"Post {post_id} deleted successfully"}
+
 @app.post("/posts/{post_id}/react", response_model=schemas.PostResponse)
 def reaction_on_post(post_id: int, interaction: schemas.ReactionRequest, db: Session = Depends(get_db)):
     return react_to_post(db, post_id, interaction.action)

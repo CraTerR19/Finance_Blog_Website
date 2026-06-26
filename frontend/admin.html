@@ -41,6 +41,54 @@
     .subscribers-table tr:hover {
       background: rgba(255, 255, 255, 0.02);
     }
+    .post-manage-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 1.5rem;
+      padding: 1.5rem;
+      border: 1px solid var(--glass-border);
+      border-radius: 20px;
+      margin-bottom: 1rem;
+      transition: var(--transition);
+      background: rgba(255,255,255,0.01);
+    }
+    .post-manage-item:hover {
+      border-color: rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.03);
+    }
+    .post-manage-info {
+      flex-grow: 1;
+    }
+    .post-manage-info h4 {
+      font-size: 1.1rem;
+      color: var(--text-primary);
+      margin-bottom: 0.3rem;
+      font-family: 'Outfit', sans-serif;
+      letter-spacing: normal;
+    }
+    .post-manage-info span {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+    }
+    .delete-post-btn {
+      background: rgba(255, 60, 60, 0.1);
+      border: 1px solid rgba(255, 60, 60, 0.3);
+      color: #ff6b6b;
+      border-radius: 10px;
+      padding: 0.6rem 1rem;
+      font-size: 0.85rem;
+      cursor: pointer;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 600;
+      transition: var(--transition);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .delete-post-btn:hover {
+      background: rgba(255, 60, 60, 0.25);
+      border-color: #ff6b6b;
+      transform: scale(1.04);
+    }
   </style>
 </head>
 <body>
@@ -54,6 +102,13 @@
       <a href="blogs.html">Blogs</a>
       <a href="learn.html">Learn</a>
       <a href="about.html">About Me</a>
+      <div class="dropdown">
+        <button class="dropbtn">Tools <i class="fa-solid fa-chevron-down" style="font-size: 0.8em; margin-left: 5px;"></i></button>
+        <div class="dropdown-content">
+          <a href="sip-calculator.html">SIP Calculator</a>
+          <a href="pms.html">PMS</a>
+        </div>
+      </div>
     </div>
   </nav>
 
@@ -96,6 +151,22 @@
       </form>
     </div>
 
+    <!-- Manage & Delete Posts Section -->
+    <div class="card visible" style="margin-top: 3rem;" id="managePostsCard">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
+        <h2 style="font-size: 1.8rem; background: linear-gradient(90deg, #ff6b6b, var(--secondary-color)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+          <i class="fa-solid fa-trash-can" style="-webkit-text-fill-color: #ff6b6b; margin-right: 10px;"></i>Manage Posts
+        </h2>
+        <button id="loadPostsBtn" class="btn" style="padding: 0.6rem 1.5rem; font-size: 0.9rem; border-radius: 8px;">
+          <i class="fa-solid fa-rotate-right" style="margin-right: 5px;"></i> Load Posts
+        </button>
+      </div>
+      <p style="color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 1.5rem;">Use this to delete unwanted or outdated posts. This action is permanent and will also remove all comments on that post.</p>
+      <div id="postsManageList">
+        <p style="text-align: center; color: var(--text-secondary); padding: 2rem 0;">Enter Admin Token and click "Load Posts" to manage articles.</p>
+      </div>
+    </div>
+
     <!-- Subscribers List Section -->
     <div class="card visible" style="margin-top: 3rem;">
       <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
@@ -127,6 +198,52 @@
       </div>
     </div>
   </div>
+
+  <footer class="site-footer">
+    <div class="footer-grid">
+      <div class="footer-brand-section">
+        <a href="index.html" class="brand" style="display: flex; align-items: center; gap: 15px;">
+          <div class="logo-wrapper" style="width: 45px; height: 45px; border-radius: 8px;"></div>
+          Fin<span>Verse</span>
+        </a>
+        <p class="footer-brand-desc">Institutional-grade financial insights, market analysis, and tools for modern investors.</p>
+      </div>
+
+      <div class="footer-column">
+        <h4>Navigate</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="blogs.html">Blogs</a></li>
+          <li><a href="learn.html">Learn</a></li>
+          <li><a href="about.html">About Me</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-column">
+        <h4>Tools</h4>
+        <ul>
+          <li><a href="sip-calculator.html">SIP Calculator</a></li>
+          <li><a href="pms.html">PMS</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-column">
+        <h4>Connect</h4>
+        <div class="footer-social-links">
+          <a href="https://www.linkedin.com/in/samarth-yanjane-513295374?utm_source=share_via&utm_content=profile&utm_medium=member_android" target="_blank" class="social-icon linkedin" title="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+          <a href="https://www.instagram.com/finverse.zone/" target="_blank" class="social-icon instagram" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>&copy; 2026 FinVerse. All Rights Reserved. Not Financial Advice.</p>
+      <div class="footer-bottom-links">
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms of Service</a>
+      </div>
+    </div>
+  </footer>
 
   <div id="toast">Message goes here</div>
 
@@ -193,6 +310,82 @@
       }
     }
 
+    async function loadPostsForManagement() {
+      const token = document.getElementById('adminToken').value.trim();
+      const listContainer = document.getElementById('postsManageList');
+      if (!listContainer) return;
+
+      if (!token) {
+        listContainer.innerHTML = '<p style="text-align: center; color: var(--secondary-color); padding: 2rem 0;">Please enter your Admin Token first.</p>';
+        return;
+      }
+
+      listContainer.innerHTML = '<p style="text-align: center; color: var(--text-secondary); padding: 2rem 0;"><i class="fa-solid fa-circle-notch fa-spin" style="margin-right: 8px;"></i>Loading posts...</p>';
+
+      try {
+        const res = await fetch(`${API_BASE}/posts/`);
+        if (!res.ok) throw new Error('Failed');
+        const posts = await res.json();
+
+        if (posts.length === 0) {
+          listContainer.innerHTML = '<p style="text-align: center; color: var(--text-secondary); padding: 2rem 0;">No posts found.</p>';
+          return;
+        }
+
+        listContainer.innerHTML = '';
+        posts.forEach(post => {
+          const item = document.createElement('div');
+          item.className = 'post-manage-item';
+          const dateStr = new Date(post.created_at).toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' });
+          item.innerHTML = `
+            <div class="post-manage-info">
+              <h4>${post.title}</h4>
+              <span><i class="fa-regular fa-calendar" style="margin-right: 5px;"></i>${dateStr} &nbsp;&bull;&nbsp; ID: ${post.id} &nbsp;&bull;&nbsp; ${post.comments ? post.comments.length : 0} comments</span>
+            </div>
+            <button class="delete-post-btn" onclick="deletePost(${post.id}, this)">
+              <i class="fa-solid fa-trash" style="margin-right: 5px;"></i> Delete
+            </button>
+          `;
+          listContainer.appendChild(item);
+        });
+      } catch(err) {
+        listContainer.innerHTML = '<p style="text-align: center; color: #ff6b6b; padding: 2rem 0;">Error loading posts. Is the backend running?</p>';
+      }
+    }
+
+    async function deletePost(postId, btn) {
+      const token = document.getElementById('adminToken').value.trim();
+      if (!token) {
+        showToast('Admin Token required!', true);
+        return;
+      }
+      if (!confirm(`Are you sure you want to permanently delete post ID ${postId}? This cannot be undone.`)) return;
+
+      btn.disabled = true;
+      btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i>';
+
+      try {
+        const res = await fetch(`${API_BASE}/posts/${postId}`, {
+          method: 'DELETE',
+          headers: { 'X-Admin-Token': token }
+        });
+        if (!res.ok) {
+          const err = await res.json();
+          showToast(err.detail || 'Delete failed!', true);
+          btn.disabled = false;
+          btn.innerHTML = '<i class="fa-solid fa-trash" style="margin-right: 5px;"></i> Delete';
+          return;
+        }
+        showToast('Post deleted successfully!');
+        // Remove the item from the DOM
+        btn.closest('.post-manage-item').remove();
+      } catch(err) {
+        showToast('Network error while deleting.', true);
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fa-solid fa-trash" style="margin-right: 5px;"></i> Delete';
+      }
+    }
+
     // Load saved session token if exists
     document.addEventListener("DOMContentLoaded", () => {
       const savedToken = sessionStorage.getItem('adminToken');
@@ -209,6 +402,11 @@
       const tokenInput = document.getElementById('adminToken');
       if (tokenInput) {
         tokenInput.addEventListener('change', fetchSubscribers);
+      }
+
+      const loadPostsBtn = document.getElementById('loadPostsBtn');
+      if (loadPostsBtn) {
+        loadPostsBtn.addEventListener('click', loadPostsForManagement);
       }
     });
 
